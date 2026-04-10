@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Lemon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 { color: #495e57; }
+        h2 { color: #f4ce14; background-color: #495e57; padding: 8px 12px; }
+        ul { line-height: 2; }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+        .get { background: #61affe; color: #fff; }
+        .post { background: #49cc90; color: #fff; }
+        .put { background: #fca130; color: #fff; }
+        .delete { background: #f93e3e; color: #fff; }
+    </style>
+</head>
+<body>
+    <h1>Little Lemon Restaurant API</h1>
+    <p>Welcome to the Little Lemon restaurant backend. Use the endpoints below to interact with the API.</p>
+
+    <h2>Menu</h2>
+    <ul>
+        <li><span class="badge get">GET</span> <code>/api/menu/</code> — List all menu items</li>
+        <li><span class="badge post">POST</span> <code>/api/menu/</code> — Add a new menu item</li>
+        <li><span class="badge get">GET</span> <code>/api/menu/&lt;id&gt;/</code> — Retrieve a menu item</li>
+        <li><span class="badge put">PUT</span> <code>/api/menu/&lt;id&gt;/</code> — Update a menu item</li>
+        <li><span class="badge delete">DELETE</span> <code>/api/menu/&lt;id&gt;/</code> — Delete a menu item</li>
+    </ul>
+
+    <h2>Bookings</h2>
+    <ul>
+        <li><span class="badge get">GET</span> <code>/api/bookings/</code> — List all bookings</li>
+        <li><span class="badge post">POST</span> <code>/api/bookings/</code> — Create a booking</li>
+        <li><span class="badge get">GET</span> <code>/api/bookings/&lt;id&gt;/</code> — Retrieve a booking</li>
+        <li><span class="badge put">PUT</span> <code>/api/bookings/&lt;id&gt;/</code> — Update a booking</li>
+        <li><span class="badge delete">DELETE</span> <code>/api/bookings/&lt;id&gt;/</code> — Delete a booking</li>
+    </ul>
+
+    <h2>Authentication</h2>
+    <ul>
+        <li><span class="badge post">POST</span> <code>/auth/users/</code> — Register a new user</li>
+        <li><span class="badge post">POST</span> <code>/auth/token/login/</code> — Obtain auth token</li>
+        <li><span class="badge post">POST</span> <code>/auth/token/logout/</code> — Revoke auth token</li>
+    </ul>
+</body>
+</html>
