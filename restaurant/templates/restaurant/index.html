@@ -3,66 +3,727 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Little Lemon</title>
+    <title>Little Lemon API Docs</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #f9f9f9;
-            color: #333;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0f1117;
+            color: #e1e4e8;
+            display: flex;
+            min-height: 100vh;
         }
-        h1 { color: #495e57; }
-        h2 { color: #f4ce14; background-color: #495e57; padding: 8px 12px; }
-        ul { line-height: 2; }
-        code {
-            background: #eee;
-            padding: 2px 6px;
+
+        nav {
+            width: 220px;
+            background: #161b22;
+            border-right: 1px solid #30363d;
+            padding: 24px 0;
+            position: fixed;
+            top: 0; bottom: 0;
+            overflow-y: auto;
+        }
+
+        .nav-logo {
+            padding: 0 20px 24px;
+            border-bottom: 1px solid #30363d;
+            margin-bottom: 16px;
+        }
+
+        .nav-logo img { height: 32px; }
+
+        .nav-logo p {
+            font-size: 0.7rem;
+            color: #8b949e;
+            margin-top: 6px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        nav a {
+            display: block;
+            padding: 7px 20px;
+            color: #8b949e;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-left: 2px solid transparent;
+            transition: all 0.15s;
+        }
+
+        nav a:hover { color: #e1e4e8; border-left-color: #f4ce14; background: #1c2128; }
+
+        nav .nav-section {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #484f58;
+            padding: 16px 20px 6px;
+            font-weight: 600;
+        }
+
+        main {
+            margin-left: 220px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 860px;
+        }
+
+        .page-header {
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 { font-size: 1.6rem; font-weight: 600; color: #f0f6fc; }
+
+        .page-header p {
+            margin-top: 8px;
+            color: #8b949e;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .meta-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+        .meta-tag {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+            color: #8b949e;
+        }
+
+        .meta-tag.green { border-color: #2ea043; color: #3fb950; }
+
+        /* Token bar */
+        .token-bar {
+            background: #161b22;
+            border: 1px solid #f4ce14;
+            border-radius: 8px;
+            padding: 16px 18px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .token-bar label {
+            font-size: 0.8rem;
+            color: #f4ce14;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .token-bar input {
+            flex: 1;
+            min-width: 200px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #e1e4e8;
+            font-family: monospace;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .token-bar input:focus { border-color: #f4ce14; }
+
+        .token-bar input::placeholder { color: #484f58; }
+
+        .token-status {
+            font-size: 0.75rem;
+            color: #8b949e;
+            white-space: nowrap;
+        }
+
+        .token-status.set { color: #3fb950; }
+
+        h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin: 36px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        /* Endpoint cards */
+        .endpoint {
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            background: #161b22;
+            overflow: hidden;
+            transition: border-color 0.15s;
+        }
+
+        .endpoint:hover { border-color: #484f58; }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .method {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
             border-radius: 4px;
-            font-size: 0.95em;
+            width: 60px;
+            text-align: center;
+            flex-shrink: 0;
+            letter-spacing: 0.04em;
         }
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-right: 6px;
+
+        .get    { background: #1f3a5f; color: #79c0ff; border: 1px solid #1f6feb; }
+        .post   { background: #1a3a2a; color: #56d364; border: 1px solid #2ea043; }
+        .put    { background: #3a2a10; color: #d29922; border: 1px solid #9e6a03; }
+        .delete { background: #3a1010; color: #f85149; border: 1px solid #da3633; }
+
+        .endpoint-meta { flex: 1; }
+
+        .endpoint-path {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #e1e4e8;
         }
-        .get { background: #61affe; color: #fff; }
-        .post { background: #49cc90; color: #fff; }
-        .put { background: #fca130; color: #fff; }
-        .delete { background: #f93e3e; color: #fff; }
+
+        .endpoint-desc {
+            font-size: 0.78rem;
+            color: #8b949e;
+            margin-top: 2px;
+        }
+
+        .try-btn {
+            background: transparent;
+            border: 1px solid #30363d;
+            color: #8b949e;
+            padding: 5px 14px;
+            border-radius: 5px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+
+        .try-btn:hover { border-color: #58a6ff; color: #58a6ff; }
+        .try-btn.open  { border-color: #58a6ff; color: #58a6ff; background: #1f3a5f22; }
+
+        /* Try panel */
+        .try-panel {
+            display: none;
+            border-top: 1px solid #30363d;
+            padding: 16px;
+            background: #0d1117;
+        }
+
+        .try-panel.open { display: block; }
+
+        .field-row {
+            margin-bottom: 10px;
+        }
+
+        .field-row label {
+            display: block;
+            font-size: 0.75rem;
+            color: #8b949e;
+            margin-bottom: 4px;
+        }
+
+        .field-row input,
+        .field-row textarea {
+            width: 100%;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 5px;
+            padding: 8px 10px;
+            color: #e1e4e8;
+            font-family: monospace;
+            font-size: 0.83rem;
+            outline: none;
+            resize: vertical;
+        }
+
+        .field-row input:focus,
+        .field-row textarea:focus { border-color: #58a6ff; }
+
+        .send-btn {
+            background: #238636;
+            border: 1px solid #2ea043;
+            color: #fff;
+            padding: 7px 20px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            margin-top: 4px;
+        }
+
+        .send-btn:hover { background: #2ea043; }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .response-box {
+            margin-top: 14px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .response-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-bottom: 1px solid #30363d;
+            font-size: 0.75rem;
+            color: #8b949e;
+        }
+
+        .status-code {
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .status-2xx { color: #3fb950; }
+        .status-4xx { color: #f85149; }
+        .status-5xx { color: #f85149; }
+
+        .response-body {
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.82rem;
+            color: #e1e4e8;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 260px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+
+        .coverage {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .cov-badge {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px 16px;
+            font-size: 0.8rem;
+            color: #8b949e;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .cov-badge .cov-num {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #3fb950;
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <h1>Little Lemon Restaurant API</h1>
-    <p>Welcome to the Little Lemon restaurant backend. Use the endpoints below to interact with the API.</p>
 
-    <h2>Menu</h2>
-    <ul>
-        <li><span class="badge get">GET</span> <code>/api/menu/</code> — List all menu items</li>
-        <li><span class="badge post">POST</span> <code>/api/menu/</code> — Add a new menu item</li>
-        <li><span class="badge get">GET</span> <code>/api/menu/&lt;id&gt;/</code> — Retrieve a menu item</li>
-        <li><span class="badge put">PUT</span> <code>/api/menu/&lt;id&gt;/</code> — Update a menu item</li>
-        <li><span class="badge delete">DELETE</span> <code>/api/menu/&lt;id&gt;/</code> — Delete a menu item</li>
-    </ul>
+<nav>
+    <div class="nav-logo">
+        <img src="https://raw.githubusercontent.com/AngelloAD/little-lemon-capstone/main/littlelemon/restaurant/static/restaurant/img/logo.png" alt="Little Lemon">
+        <p>API Reference</p>
+    </div>
+    <div class="nav-section">Endpoints</div>
+    <a href="#auth">Authentication</a>
+    <a href="#menu">Menu</a>
+    <a href="#bookings">Bookings</a>
+    <div class="nav-section">Info</div>
+    <a href="#coverage">Test Coverage</a>
+</nav>
 
-    <h2>Bookings</h2>
-    <ul>
-        <li><span class="badge get">GET</span> <code>/api/bookings/</code> — List all bookings</li>
-        <li><span class="badge post">POST</span> <code>/api/bookings/</code> — Create a booking</li>
-        <li><span class="badge get">GET</span> <code>/api/bookings/&lt;id&gt;/</code> — Retrieve a booking</li>
-        <li><span class="badge put">PUT</span> <code>/api/bookings/&lt;id&gt;/</code> — Update a booking</li>
-        <li><span class="badge delete">DELETE</span> <code>/api/bookings/&lt;id&gt;/</code> — Delete a booking</li>
-    </ul>
+<main>
 
-    <h2>Authentication</h2>
-    <ul>
-        <li><span class="badge post">POST</span> <code>/auth/users/</code> — Register a new user</li>
-        <li><span class="badge post">POST</span> <code>/auth/token/login/</code> — Obtain auth token</li>
-        <li><span class="badge post">POST</span> <code>/auth/token/logout/</code> — Revoke auth token</li>
-    </ul>
+    <div class="page-header">
+        <h1>Little Lemon Restaurant API</h1>
+        <p>REST API backend for the Little Lemon restaurant. Provides endpoints for menu management and table bookings. All <code style="background:#1c2128;padding:2px 6px;border-radius:4px;font-size:0.85em;">/api/</code> endpoints require token authentication.</p>
+        <div class="meta-row">
+            <span class="meta-tag green">v1.0</span>
+            <span class="meta-tag">Django REST Framework</span>
+            <span class="meta-tag">Token Auth</span>
+            <span class="meta-tag">MySQL</span>
+        </div>
+    </div>
+
+    <div class="token-bar">
+        <label>&#x1F511; Auth Token</label>
+        <input type="text" id="global-token" placeholder="Paste your token here after logging in..." oninput="updateTokenStatus()">
+        <span class="token-status" id="token-status">No token set</span>
+    </div>
+
+    <h2 id="auth">Authentication</h2>
+
+    <!-- Register -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method post">POST</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/auth/users/</div>
+                <div class="endpoint-desc">Register a new user account</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="POST" data-url="/auth/users/">
+            <div class="field-row"><label>username</label><input type="text" name="username" placeholder="e.g. testuser"></div>
+            <div class="field-row"><label>password</label><input type="password" name="password" placeholder="e.g. testpass123"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Login -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method post">POST</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/auth/token/login/</div>
+                <div class="endpoint-desc">Obtain an authentication token</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="POST" data-url="/auth/token/login/" data-autofill-token="true">
+            <div class="field-row"><label>username</label><input type="text" name="username" placeholder="e.g. testuser"></div>
+            <div class="field-row"><label>password</label><input type="password" name="password" placeholder="e.g. testpass123"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Logout -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method post">POST</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/auth/token/logout/</div>
+                <div class="endpoint-desc">Revoke the current authentication token</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="POST" data-url="/auth/token/logout/" data-auth="true">
+            <p style="font-size:0.8rem;color:#8b949e;margin-bottom:10px;">Uses the token set above. No body required.</p>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <h2 id="menu">Menu</h2>
+
+    <!-- GET /api/menu/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method get">GET</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/menu/</div>
+                <div class="endpoint-desc">List all menu items</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="GET" data-url="/api/menu/" data-auth="true">
+            <p style="font-size:0.8rem;color:#8b949e;margin-bottom:10px;">No body required.</p>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- POST /api/menu/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method post">POST</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/menu/</div>
+                <div class="endpoint-desc">Create a new menu item</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="POST" data-url="/api/menu/" data-auth="true">
+            <div class="field-row"><label>title</label><input type="text" name="title" placeholder="e.g. Greek Salad"></div>
+            <div class="field-row"><label>price</label><input type="text" name="price" placeholder="e.g. 12.99"></div>
+            <div class="field-row"><label>inventory</label><input type="text" name="inventory" placeholder="e.g. 50"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- GET /api/menu/<id>/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method get">GET</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/menu/&lt;id&gt;/</div>
+                <div class="endpoint-desc">Retrieve a single menu item</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="GET" data-url="/api/menu/{id}/" data-auth="true" data-has-id="true">
+            <div class="field-row"><label>id</label><input type="text" name="id" placeholder="e.g. 1"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- PUT /api/menu/<id>/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method put">PUT</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/menu/&lt;id&gt;/</div>
+                <div class="endpoint-desc">Update a menu item</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="PUT" data-url="/api/menu/{id}/" data-auth="true" data-has-id="true">
+            <div class="field-row"><label>id</label><input type="text" name="id" placeholder="e.g. 1"></div>
+            <div class="field-row"><label>title</label><input type="text" name="title" placeholder="e.g. Greek Salad"></div>
+            <div class="field-row"><label>price</label><input type="text" name="price" placeholder="e.g. 14.99"></div>
+            <div class="field-row"><label>inventory</label><input type="text" name="inventory" placeholder="e.g. 40"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- DELETE /api/menu/<id>/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method delete">DELETE</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/menu/&lt;id&gt;/</div>
+                <div class="endpoint-desc">Delete a menu item</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="DELETE" data-url="/api/menu/{id}/" data-auth="true" data-has-id="true">
+            <div class="field-row"><label>id</label><input type="text" name="id" placeholder="e.g. 1"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <h2 id="bookings">Bookings</h2>
+
+    <!-- GET /api/bookings/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method get">GET</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/bookings/</div>
+                <div class="endpoint-desc">List all table bookings</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="GET" data-url="/api/bookings/" data-auth="true">
+            <p style="font-size:0.8rem;color:#8b949e;margin-bottom:10px;">No body required.</p>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- POST /api/bookings/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method post">POST</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/bookings/</div>
+                <div class="endpoint-desc">Create a new table booking</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="POST" data-url="/api/bookings/" data-auth="true">
+            <div class="field-row"><label>name</label><input type="text" name="name" placeholder="e.g. Jane Smith"></div>
+            <div class="field-row"><label>no_of_guests</label><input type="text" name="no_of_guests" placeholder="e.g. 4"></div>
+            <div class="field-row"><label>booking_date</label><input type="text" name="booking_date" placeholder="e.g. 2026-08-01T19:00:00Z"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- GET /api/bookings/<id>/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method get">GET</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/bookings/&lt;id&gt;/</div>
+                <div class="endpoint-desc">Retrieve a single booking</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="GET" data-url="/api/bookings/{id}/" data-auth="true" data-has-id="true">
+            <div class="field-row"><label>id</label><input type="text" name="id" placeholder="e.g. 1"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- PUT /api/bookings/<id>/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method put">PUT</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/bookings/&lt;id&gt;/</div>
+                <div class="endpoint-desc">Update a booking</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="PUT" data-url="/api/bookings/{id}/" data-auth="true" data-has-id="true">
+            <div class="field-row"><label>id</label><input type="text" name="id" placeholder="e.g. 1"></div>
+            <div class="field-row"><label>name</label><input type="text" name="name" placeholder="e.g. Jane Smith"></div>
+            <div class="field-row"><label>no_of_guests</label><input type="text" name="no_of_guests" placeholder="e.g. 5"></div>
+            <div class="field-row"><label>booking_date</label><input type="text" name="booking_date" placeholder="e.g. 2026-08-01T19:00:00Z"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- DELETE /api/bookings/<id>/ -->
+    <div class="endpoint">
+        <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method delete">DELETE</span>
+            <div class="endpoint-meta">
+                <div class="endpoint-path">/api/bookings/&lt;id&gt;/</div>
+                <div class="endpoint-desc">Delete a booking</div>
+            </div>
+            <button class="try-btn" onclick="event.stopPropagation(); togglePanel(this)">Try</button>
+        </div>
+        <div class="try-panel" data-method="DELETE" data-url="/api/bookings/{id}/" data-auth="true" data-has-id="true">
+            <div class="field-row"><label>id</label><input type="text" name="id" placeholder="e.g. 1"></div>
+            <button class="send-btn" onclick="sendRequest(this)">Send Request</button>
+            <div class="response-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <h2 id="coverage">Test Coverage</h2>
+    <div class="coverage">
+        <div class="cov-badge"><span class="cov-num">17</span>Unit Tests</div>
+        <div class="cov-badge"><span class="cov-num">2</span>Model Suites</div>
+        <div class="cov-badge"><span class="cov-num">2</span>API Suites</div>
+        <div class="cov-badge"><span class="cov-num">100%</span>Pass Rate</div>
+    </div>
+
+</main>
+
+<script>
+    function updateTokenStatus() {
+        const token = document.getElementById('global-token').value.trim();
+        const status = document.getElementById('token-status');
+        if (token) {
+            status.textContent = '✓ Token set';
+            status.className = 'token-status set';
+        } else {
+            status.textContent = 'No token set';
+            status.className = 'token-status';
+        }
+    }
+
+    function togglePanel(btn) {
+        const panel = btn.closest('.endpoint').querySelector('.try-panel');
+        const isOpen = panel.classList.contains('open');
+        panel.classList.toggle('open', !isOpen);
+        btn.classList.toggle('open', !isOpen);
+        btn.textContent = isOpen ? 'Try' : 'Close';
+    }
+
+    async function sendRequest(btn) {
+        const panel = btn.closest('.try-panel');
+        const method = panel.dataset.method;
+        let url = panel.dataset.url;
+        const needsAuth = panel.dataset.auth === 'true';
+        const autofillToken = panel.dataset.autofillToken === 'true';
+        const hasId = panel.dataset.hasId === 'true';
+
+        const token = document.getElementById('global-token').value.trim();
+        const responseBox = panel.querySelector('.response-box');
+
+        // Build URL with ID if needed
+        if (hasId) {
+            const idInput = panel.querySelector('input[name="id"]');
+            url = url.replace('{id}', idInput ? idInput.value.trim() : '');
+        }
+
+        // Build headers
+        const headers = { 'Content-Type': 'application/json' };
+        if (needsAuth && token) {
+            headers['Authorization'] = 'Token ' + token;
+        }
+
+        // Build body
+        let body = null;
+        if (['POST', 'PUT'].includes(method)) {
+            const inputs = panel.querySelectorAll('input[name]:not([name="id"]), textarea[name]');
+            const data = {};
+            inputs.forEach(i => {
+                if (i.value.trim()) data[i.name] = i.value.trim();
+            });
+            if (Object.keys(data).length > 0) body = JSON.stringify(data);
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        responseBox.style.display = 'none';
+
+        try {
+            const res = await fetch(url, { method, headers, body });
+            let responseText = '';
+            const contentType = res.headers.get('content-type') || '';
+
+            if (contentType.includes('application/json')) {
+                const json = await res.json();
+
+                // Auto-fill token from login response
+                if (autofillToken && json.auth_token) {
+                    document.getElementById('global-token').value = json.auth_token;
+                    updateTokenStatus();
+                }
+
+                responseText = JSON.stringify(json, null, 2);
+            } else {
+                responseText = await res.text() || '(empty response)';
+            }
+
+            const statusClass = res.status >= 200 && res.status < 300 ? 'status-2xx' :
+                                res.status >= 400 && res.status < 500 ? 'status-4xx' : 'status-5xx';
+
+            responseBox.innerHTML = `
+                <div class="response-meta">
+                    <span class="status-code ${statusClass}">${res.status} ${res.statusText}</span>
+                    <span>${method} ${url}</span>
+                </div>
+                <div class="response-body">${escapeHtml(responseText)}</div>
+            `;
+            responseBox.style.display = 'block';
+
+        } catch (err) {
+            responseBox.innerHTML = `
+                <div class="response-meta"><span class="status-code status-5xx">Network Error</span></div>
+                <div class="response-body">${escapeHtml(err.message)}</div>
+            `;
+            responseBox.style.display = 'block';
+        }
+
+        btn.disabled = false;
+        btn.textContent = 'Send Request';
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+</script>
+
 </body>
 </html>
