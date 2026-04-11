@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,11 +87,11 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'littlelemon',
-        'USER': 'root',
-        'PASSWORD': 'admin123',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': os.environ.get('MYSQL_DATABASE', 'littlelemon'),
+        'USER': os.environ.get('MYSQL_USER', 'root'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD', 'admin123'),
+        'HOST': os.environ.get('MYSQL_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('MYSQL_PORT', '3306'),
     }
 }
 
