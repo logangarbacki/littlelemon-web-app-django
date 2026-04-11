@@ -11,7 +11,8 @@ class MenuItemModelTest(TestCase):
         self.item = MenuItem.objects.create(
             title='Greek Salad',
             price=12.99,
-            inventory=50
+            inventory=50,
+            category='Starters'
         )
 
     def test_menu_item_str(self):
@@ -47,7 +48,8 @@ class MenuItemAPITest(TestCase):
         self.item = MenuItem.objects.create(
             title='Bruschetta',
             price=8.50,
-            inventory=30
+            inventory=30,
+            category='Starters'
         )
 
     def test_get_menu_items(self):
@@ -55,7 +57,7 @@ class MenuItemAPITest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_menu_item(self):
-        data = {'title': 'Lemon Dessert', 'price': 6.99, 'inventory': 20}
+        data = {'title': 'Lemon Dessert', 'price': 6.99, 'inventory': 20, 'category': 'Desserts'}
         response = self.client.post('/api/menu/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -65,7 +67,7 @@ class MenuItemAPITest(TestCase):
         self.assertEqual(response.data['title'], 'Bruschetta')
 
     def test_update_menu_item(self):
-        data = {'title': 'Bruschetta', 'price': 9.00, 'inventory': 25}
+        data = {'title': 'Bruschetta', 'price': 9.00, 'inventory': 25, 'category': 'Starters'}
         response = self.client.put(f'/api/menu/{self.item.id}/', data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(float(response.data['price']), 9.00)
