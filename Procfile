@@ -1,1 +1,1 @@
-web: gunicorn littlelemon.wsgi
+web: python manage.py collectstatic --noinput && gunicorn littlelemon.wsgi
