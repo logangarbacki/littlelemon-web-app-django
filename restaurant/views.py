@@ -10,8 +10,14 @@ def index(request):
 
 
 class MenuItemView(generics.ListCreateAPIView):
-    queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
+
+    def get_queryset(self):
+        queryset = MenuItem.objects.all()
+        featured = self.request.query_params.get('featured')
+        if featured == 'true':
+            queryset = queryset.filter(featured=True)
+        return queryset
 
     def get_permissions(self):
         if self.request.method == 'GET':

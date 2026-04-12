@@ -13,6 +13,8 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.SmallIntegerField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Mains')
+    image_url = models.URLField(blank=True, default='')
+    featured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
