@@ -99,7 +99,14 @@ python manage.py test restaurant
 React front-end that consumes this API:
 https://github.com/logangarbacki/meta-front-end-developer-capstone
 
+Live: https://meta-front-end-developer-capstone-three.vercel.app/
+
 ## Project Background
 
-Built as the capstone for the Meta Back-End Developer Professional Certificate on Coursera.
-https://www.coursera.org/professional-certificates/meta-back-end-developer
+Originally built as the capstone for the Meta Back-End Developer Professional Certificate on Coursera — but extended well beyond the course requirements.
+
+The base requirement was a local Django API with basic endpoints. This version adds production deployment on Railway, CORS configuration, featured item filtering, image URL support, WhiteNoise for static file serving, and full integration with a live React front-end.
+
+Both capstones were completed independently, then connected into a single deployed full-stack application:
+- Meta Back-End Developer: https://www.coursera.org/professional-certificates/meta-back-end-developer
+- Meta Front-End Developer: https://www.coursera.org/professional-certificates/meta-front-end-developer
