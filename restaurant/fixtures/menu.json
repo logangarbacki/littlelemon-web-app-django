@@ -8,7 +8,7 @@
       "price": "12.99",
       "inventory": 50,
       "category": "Starters",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=80",
       "featured": true,
       "ordering": 1
     }
@@ -22,7 +22,7 @@
       "price": "7.99",
       "inventory": 40,
       "category": "Starters",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=600&q=80",
       "featured": false,
       "ordering": 2
     }
@@ -36,7 +36,7 @@
       "price": "8.99",
       "inventory": 45,
       "category": "Starters",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600&q=80",
       "featured": false,
       "ordering": 3
     }
@@ -50,7 +50,7 @@
       "price": "24.99",
       "inventory": 20,
       "category": "Mains",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80",
       "featured": true,
       "ordering": 1
     }
@@ -64,7 +64,7 @@
       "price": "22.99",
       "inventory": 25,
       "category": "Mains",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
       "featured": false,
       "ordering": 2
     }
@@ -78,7 +78,7 @@
       "price": "16.99",
       "inventory": 30,
       "category": "Mains",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=600&q=80",
       "featured": false,
       "ordering": 3
     }
@@ -92,7 +92,7 @@
       "price": "15.99",
       "inventory": 20,
       "category": "Mains",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80",
       "featured": false,
       "ordering": 4
     }
@@ -106,7 +106,7 @@
       "price": "6.99",
       "inventory": 35,
       "category": "Desserts",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80",
       "featured": true,
       "ordering": 1
     }
@@ -120,7 +120,7 @@
       "price": "5.99",
       "inventory": 40,
       "category": "Desserts",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=600&q=80",
       "featured": false,
       "ordering": 2
     }
@@ -134,7 +134,7 @@
       "price": "6.49",
       "inventory": 30,
       "category": "Desserts",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=600&q=80",
       "featured": false,
       "ordering": 3
     }
@@ -148,7 +148,7 @@
       "price": "4.49",
       "inventory": 100,
       "category": "Drinks",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1546173159-315724a31696?w=600&q=80",
       "featured": false,
       "ordering": 1
     }
@@ -162,7 +162,7 @@
       "price": "3.99",
       "inventory": 100,
       "category": "Drinks",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
       "featured": false,
       "ordering": 2
     }
@@ -176,7 +176,7 @@
       "price": "8.99",
       "inventory": 60,
       "category": "Drinks",
-      "image_url": "",
+      "image_url": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80",
       "featured": false,
       "ordering": 3
     }
