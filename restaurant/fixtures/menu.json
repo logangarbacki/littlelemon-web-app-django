@@ -1,0 +1,184 @@
+[
+  {
+    "model": "restaurant.menuitem",
+    "pk": 1,
+    "fields": {
+      "title": "Greek Salad",
+      "description": "Fresh romaine lettuce, ripe tomatoes, cucumber, olives, and creamy feta cheese drizzled with our house olive oil dressing.",
+      "price": "12.99",
+      "inventory": 50,
+      "category": "Starters",
+      "image_url": "",
+      "featured": true,
+      "ordering": 1
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 2,
+    "fields": {
+      "title": "Bruschetta",
+      "description": "Toasted sourdough topped with marinated cherry tomatoes, fresh basil, and a drizzle of aged balsamic glaze.",
+      "price": "7.99",
+      "inventory": 40,
+      "category": "Starters",
+      "image_url": "",
+      "featured": false,
+      "ordering": 2
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 3,
+    "fields": {
+      "title": "Hummus & Pita",
+      "description": "House-made chickpea hummus with paprika, olive oil, and warm toasted pita bread.",
+      "price": "8.99",
+      "inventory": 45,
+      "category": "Starters",
+      "image_url": "",
+      "featured": false,
+      "ordering": 3
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 4,
+    "fields": {
+      "title": "Grilled Sea Bass",
+      "description": "Pan-seared Mediterranean sea bass with lemon herb butter, seasonal vegetables, and roasted potatoes.",
+      "price": "24.99",
+      "inventory": 20,
+      "category": "Mains",
+      "image_url": "",
+      "featured": true,
+      "ordering": 1
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 5,
+    "fields": {
+      "title": "Lamb Kofta",
+      "description": "Spiced ground lamb skewers grilled over charcoal, served with tzatziki, warm flatbread, and tabbouleh.",
+      "price": "22.99",
+      "inventory": 25,
+      "category": "Mains",
+      "image_url": "",
+      "featured": false,
+      "ordering": 2
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 6,
+    "fields": {
+      "title": "Chicken Shawarma",
+      "description": "Slow-roasted marinated chicken with garlic sauce, pickled vegetables, and fresh herbs in a grilled wrap.",
+      "price": "16.99",
+      "inventory": 30,
+      "category": "Mains",
+      "image_url": "",
+      "featured": false,
+      "ordering": 3
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 7,
+    "fields": {
+      "title": "Vegetable Moussaka",
+      "description": "Layers of roasted aubergine, courgette, spiced tomato sauce, and creamy béchamel, baked golden.",
+      "price": "15.99",
+      "inventory": 20,
+      "category": "Mains",
+      "image_url": "",
+      "featured": false,
+      "ordering": 4
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 8,
+    "fields": {
+      "title": "Lemon Dessert",
+      "description": "Our signature warm lemon tart with a buttery crust, tangy lemon curd, and a dusting of powdered sugar.",
+      "price": "6.99",
+      "inventory": 35,
+      "category": "Desserts",
+      "image_url": "",
+      "featured": true,
+      "ordering": 1
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 9,
+    "fields": {
+      "title": "Baklava",
+      "description": "Layers of crisp phyllo pastry filled with crushed pistachios and walnuts, soaked in rose water honey syrup.",
+      "price": "5.99",
+      "inventory": 40,
+      "category": "Desserts",
+      "image_url": "",
+      "featured": false,
+      "ordering": 2
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 10,
+    "fields": {
+      "title": "Chocolate Halva",
+      "description": "Rich sesame halva swirled with dark chocolate, served with a scoop of vanilla bean ice cream.",
+      "price": "6.49",
+      "inventory": 30,
+      "category": "Desserts",
+      "image_url": "",
+      "featured": false,
+      "ordering": 3
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 11,
+    "fields": {
+      "title": "Fresh Lemonade",
+      "description": "Hand-squeezed lemonade with a hint of mint and a splash of sparkling water. Refreshing and zesty.",
+      "price": "4.49",
+      "inventory": 100,
+      "category": "Drinks",
+      "image_url": "",
+      "featured": false,
+      "ordering": 1
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 12,
+    "fields": {
+      "title": "Turkish Coffee",
+      "description": "Traditionally brewed strong coffee served in a copper cezve with a small piece of Turkish delight.",
+      "price": "3.99",
+      "inventory": 100,
+      "category": "Drinks",
+      "image_url": "",
+      "featured": false,
+      "ordering": 2
+    }
+  },
+  {
+    "model": "restaurant.menuitem",
+    "pk": 13,
+    "fields": {
+      "title": "House Red Wine",
+      "description": "A smooth Greek Agiorgitiko red, full-bodied with notes of cherry and spice. Pairs beautifully with mains.",
+      "price": "8.99",
+      "inventory": 60,
+      "category": "Drinks",
+      "image_url": "",
+      "featured": false,
+      "ordering": 3
+    }
+  }
+]
