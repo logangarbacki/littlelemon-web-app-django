@@ -4,8 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.pagination import PageNumberPagination
-from .models import MenuItem, Booking
-from .serializers import MenuItemSerializer, BookingSerializer
+from .models import MenuItem, Booking, Order
+from .serializers import MenuItemSerializer, BookingSerializer, OrderSerializer
 
 
 def index(request):
@@ -67,4 +67,21 @@ class BookingViewSet(viewsets.ModelViewSet):
     def mine(self, request):
         bookings = Booking.objects.filter(user=request.user)
         serializer = self.get_serializer(bookings, many=True)
+        return Response(serializer.data)
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    @action(detail=False, methods=['get'])
+    def mine(self, request):
+        orders = Order.objects.filter(user=request.user)
+        serializer = self.get_serializer(orders, many=True)
         return Response(serializer.data)
